@@ -263,6 +263,7 @@ define command {
 ```
 ~$ sudo nano /usr/local/nagios/etc/servers/server1.cfg
 ```
+
 ![plot](./Imagenes/8.png)
 ![plot](./Imagenes/9.png)
 
