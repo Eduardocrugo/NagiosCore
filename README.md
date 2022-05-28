@@ -43,17 +43,17 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 
 ![plot](./Imagenes/1.png)
 
-4.Activamos el uso de la contraseña editando el fichero pg_hba.conf y cambimos "peer" por "md5"
+4. Activamos el uso de la contraseña editando el fichero pg_hba.conf y cambimos "peer" por "md5"
 
 ![plot](./Imagenes/2.png)
 
-5.Recargamos la configuración 
+5. Recargamos la configuración 
 ```
 ~$ sudo systemctl reload postgresql
 ```
 
 **Instalamos phpPgAdmin**
-1.Descargamos el paquete que necesitamos
+1. Descargamos el paquete que necesitamos
 ```
 ~$ sudo apt install -y phppgadim
 ```
