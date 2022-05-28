@@ -1,4 +1,4 @@
-# Despliegue de un servicio de monitorización
+## Despliegue de un servicio de monitorización
 
 Instalar y configurar uno de los siguientes servicios de monitorización (uno de los siguientes asignado por el profesor: Icinga, Nagios, Zabbix) en una MV con Ubuntu y monitorizar lo siguiente:
 - Los recursos de hardware (CPU, RAM, disco duro) de otra máquina virtual (Windows/Linux).
@@ -7,9 +7,9 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 
 ---
 
-# Para esta práctica vamos a instalar Nagios Core pero antes de eso necesitamos instalar algunos servicios: Apache, PHP , Pstgre y phpPgAdmin
+## Para esta práctica vamos a instalar Nagios Core pero antes de eso necesitamos instalar algunos servicios: Apache, PHP , Pstgre y phpPgAdmin
 
-##Instalamos apache
+### Instalamos apache
 1. Tiramos el comando siguiente para actualizar la lista de paquetes
 ```
 ~$ sudo apt update
@@ -20,13 +20,13 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ sudo apt install -y apache2
 ```
 
-##Instalación de PHP
+### Instalación de PHP
 1. Descargamos el paquete que necesitamos 
 ```
 ~$ sudo apt install -y libapache2-mod-php
 ```
 
-##Instalamos PostgreSQL
+### Instalamos PostgreSQL
 
 1. Descargamos el paquete que necesitamos
 ```
@@ -52,14 +52,14 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ sudo systemctl reload postgresql
 ```
 
-##Instalamos phpPgAdmin
+### Instalamos phpPgAdmin
 1. Descargamos el paquete que necesitamos
 ```
 ~$ sudo apt install -y phppgadim
 ```
 
-# Tras hacer todos estos pasos estamos lista para la empezar la instalación de nuestro sistema de monitorización “Nagios”
-##(Esta parte se tiene que hacer tanto en servidor como en cliente)
+## Tras hacer todos estos pasos estamos lista para la empezar la instalación de nuestro sistema de monitorización “Nagios”
+### (Esta parte se tiene que hacer tanto en servidor como en cliente)
 
 1. Ahora vamos a descargar los plugins necesarios desde este link de github
 ```
@@ -130,7 +130,7 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ sudo usermod -a -G nagios www-data
 ```
 
-##Iniciamos el servicio Nagios
+### Iniciamos el servicio Nagios
 1. Iniciamos el servicio Bagios
 ```
 ~$ sudo systemctl start nagios
@@ -143,7 +143,7 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 
 ![plot](./Imagenes/3.png)
 
-##Preparacion del servicio Web
+### Preparacion del servicio Web
 1. Lo primero es activar el módulo CGI de Apache, una vez iniciado terndremos que reiniciar apache para que tome efecto
 ```
 ~$ sudo a2enmod cgi
@@ -155,22 +155,22 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 ```
 
-##Accedemos a Nagios
+### Accedemos a Nagios
 1. Ponemos en un buscador (firefox tiene incompatibilidades) nuestra IP seguida de */nagios*
 
 ![plot](./Imagenes/4.png)
 ![plot](./Imagenes/5.png)
 
-# Ahora tendremos que descargar y configurar Nagios NRPE en tanto el servidor como en la maquina que queramos monitorizar
+## Ahora tendremos que descargar y configurar Nagios NRPE en tanto el servidor como en la maquina que queramos monitorizar
 
-##Instalamos NRPE en el sevidor y el equipo que queremos monitorizar
+### Instalamos NRPE en el sevidor y el equipo que queremos monitorizar
 1. Descargamos el paquete y las dependencias
 ```
 ~$ wget -q https://github.com/NagiosEnterprises/nrpe/releases/download/nrpe-4.0.3/nrpe-4.0.3.tar.gz
 ~$ sudo apt install -y libwrap0-dev
 ```
 
-##En el cliente
+### En el cliente
 1. Descombpirmios el codigo y nos movemos a la carpeta que se crea
 ```
 ~$ tar xf nrpe-4.0.3.tar.gz
@@ -193,7 +193,7 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ cd ..
 ```
 
-##Configuramos el servicio NRPE
+### Configuramos el servicio NRPE
 1. Editamos el fichero *nrpe.cfg* y cambiamos la linea *allowed_hosts* y añadimos la Ip del servidor
 ```
 ~$ sudo nano /usr/local/nagios/etc/nrpe.cfg
@@ -207,7 +207,7 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ sudo ufw allow nrpe
 ```
 
-##En el servidor
+### En el servidor
 1. Descombpirmios el codigo y nos movemos a la carpeta que se crea
 ```
 ~$ tar xf nrpe-4.0.3.tar.gz
@@ -230,7 +230,7 @@ Instalar y configurar uno de los siguientes servicios de monitorización (uno de
 ~$ cd ..
 ```
 
-##Configuramos el plugin NRPE
+### Configuramos el plugin NRPE
 1. Añadimos las siguientes lineas dentro del fichero *commands.cfg* para que nagios core pueda usar NRPE
 ```
 ~$ sudo nano /usr/local/nagios/etc/objects/commands.cfg
@@ -249,7 +249,7 @@ define command {
 ~$ sudo systemctl reload nagios
 ```
 
-#### Conectamos el servidor con la maquina que queremos monitorizar
+### Conectamos el servidor con la maquina que queremos monitorizar
 1. Creamos un fichero para guardar la configuracion de todas las maquinas remotas
 ```
 ~$ sudo mkdir /usr/local/nagios/etc/servers
@@ -267,7 +267,7 @@ define command {
 ![plot](./Imagenes/8.png)
 ![plot](./Imagenes/9.png)
 
-#### Monitorizar una pagina web mediante Nagios
+### Monitorizar una pagina web mediante Nagios
 1.	Dentro del fichero de configuración de nuestro servidor ponemos un nuevo host con la ip de la página web que queremos monitorizar y los servicios que queremos de esta pagina
 ```
 ~$ sudo nano /usr/local/nagios/etc/servers/server1.cfg
